@@ -1,5 +1,6 @@
 # RecSearch
 [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.5149058.svg)](https://doi.org/10.5281/zenodo.5149058)
+
 A tool for research on recommender systems.
 
 ## Table of Contents
