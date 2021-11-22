@@ -11,6 +11,7 @@ def corrected_resampled_t_statistic(x: np.array, n: int, n1: int, n2: int, alpha
     :param n: number of resamples
     :param n1: number of training instances
     :param n2: number of testing instances
+    :param alpha: level of significance for CI
     :return: p-value, confidence interval
     """
     sample_mean = np.mean(x)

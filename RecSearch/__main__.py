@@ -13,6 +13,7 @@ from RecSearch.Tools.format_data_gui import format_data_gui
 from RecSearch.Tools.create_filter_file_gui import create_filter_file_gui
 from RecSearch.Main.run_experiment_ini import run_experiment_ini
 from RecSearch.Main.experiment_summary import experiment_summary
+from RecSearch.Tests.runner import run_tests
 
 sg.theme('SystemDefault')
 
@@ -20,7 +21,8 @@ layout = [[sg.Button('Generate Experiment/Base Config (CFG)', key='-CFG-')],
           [sg.Button('Generate Experiment(s) Config (INI)', key='-INI-')],
           [sg.Button('Tools', key='-TOOLS-')],
           [sg.Button('Run Experiment(s)', key='-RUN-')],
-          [sg.Button('Experiment(s) Summary', key='-SUMMARY-')]
+          [sg.Button('Experiment(s) Summary', key='-SUMMARY-')],
+          [sg.Button('Run Tests', key='-RUNTEST-')]
           ]
 
 window = sg.Window('RecSearch', layout)
@@ -36,6 +38,8 @@ while True:
     event, values = window.read()
     if event == sg.WIN_CLOSED:
         break
+    if event == '-RUNTEST-':
+        run_tests()
     if event == '-CFG-':
         call_gui(config_generator, window)
     if event == '-INI-':

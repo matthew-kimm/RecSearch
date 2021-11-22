@@ -202,7 +202,7 @@ def summary_table():
         # Behavior is somewhat repeated in run_experiment_ini
         varies = convert_varies_base(varies_base)
     except KeyError:
-        varies = []
+        varies = [0,]
     n_varies = len(varies)
     results_folder = ini_file.removesuffix('.ini') + os_sep + 'Results' + os_sep
     results_folders = glob.glob(results_folder + '*' + os_sep)
@@ -238,8 +238,11 @@ def summary_table():
     def get_vary_str(vary_index):
         vary_value = varies[vary_index]
         vary_str = ''
-        for vary_name in vary_config:
-            vary_str += vary_name + ' = ' + str(vary_value) + '\n'
+        try:
+            for vary_name in vary_config:
+                vary_str += vary_name + ' = ' + str(vary_value) + '\n'
+        except NameError:
+            vary_str = 'No Variation'
         return vary_str
     table_headers = vary_groups.get_group(0).columns
     ci_tab = [[sg.Text('Confidence Interval Table for Value by Vary')],

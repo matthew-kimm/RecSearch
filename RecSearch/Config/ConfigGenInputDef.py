@@ -24,6 +24,7 @@ class InputFunctions:
             'filters': filters,
             'metric': metric,
             'metric_recommender': metric_recommender,
+            'checkbox': checkbox
         }
         if add_functions is not None:
             self.functions.update(add_functions)
@@ -143,6 +144,15 @@ def list_box(param: str, default_value, base_key: str, key_manager: KeyManager, 
         key_manager.update_types([update_type])
     key_manager.update_param_keys([param_key])
     return list_element
+
+
+def bool_box(param: str, default_value, base_key: str, key_manager: KeyManager, disabled: bool = False) -> list:
+    """Input (checkbox) element"""
+    input_element = [sg.Checkbox('', default=True,
+                                 key=(param_key := get_param_key(base_key, param)), disabled=disabled), ]
+    key_manager.update_param_keys([param_key])
+    input_element += check_help_buttons(param_key, key_manager)
+    return input_element
 # ___________________
 # END ROW ELEMENTS
 
@@ -174,6 +184,12 @@ def listbox_row(param: str, default_value: str, base_key: str, key_manager: KeyM
     """Tag, Listbox, Check/Help Buttons"""
     default_value = change_default_type_if_none(default_value, [])
     row = tag(param) + list_box(param, default_value, base_key, key_manager, update_type, select_mode)
+    return row
+
+
+def bool_row(param: str, default_value: str, base_key: str, key_manager: KeyManager, disabled: bool = False) -> list:
+    """Tag, bool_box, Check/Help Buttons"""
+    row = tag(param) + bool_box(param, default_value, base_key, key_manager, disabled)
     return row
 # ________________
 # END ROW OF ELEMENTS
@@ -245,6 +261,12 @@ def metric_recommender(param: str, default_value: str, base_key: str, key_manage
     """Combo box for recommenders associated with a specific metric"""
     update_type = '|metric_recommender|'
     row = combo_row(param, default_value, base_key, key_manager, update_type, disabled=True)
+    return row
+
+
+def checkbox(param: str, default_value: str, base_key: str, key_manager: KeyManager, disabled: bool = False) -> list:
+    """Input checkbox for parameter"""
+    row = bool_row(param, default_value, base_key, key_manager, disabled)
     return row
 # _____________________
 # END INPUT DEFINITIONS
