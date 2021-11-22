@@ -62,20 +62,25 @@ class INeighborhoodGradeAttributes(ABC, SharedNeighborhood):
                                                                    },
                                           (key := 'item_history_col'): {'doc': super().get_doc(key),
                                                                         'input': 'column()',
-                                                                        'validate': 'string()'}
-
+                                                                        'validate': 'string()'},
+                                          (key := 'exact_grade'): {'doc': super().get_doc(key),
+                                                                   'input': 'checkbox()',
+                                                                   'validate': 'boolean()'}
                                           }
                              }
         cls.cfg = super().update_config(cls.cfg, additional_config)
 
     @abstractmethod
-    def iget_neighborhood(self, who: dict, possible: pd.DataFrame, attributes: list, item_history_col: str) -> list:
+    def iget_neighborhood(self, who: dict, possible: pd.DataFrame, attributes: list,
+                          item_history_col: str, exact_grade: bool) -> list:
         """
         Abstract method to be implemented for getting neighborhood of an id based on data.
         :param who: dict containing index (id) with related data to find neighborhood using the possible dataframe
         :param possible: dataframe containing id and related data of possible neighbors of who.
         :param attributes: list of attributes to match
         :param item_history_col: column containing dict of form {item: rating}
+        :param exact_grade: Match on the exact grade. (False numerically matches only letter of grade
+        using the 4.0, 3.7, 3.3, 3.0, ... scale)
         :return: list containing ids of neighbors (namedtuples so can store additional info about neighbor relation)
                                                     e.g. [Neighbor(id=101, similarity=0.8), ...]
         """
@@ -88,20 +93,25 @@ class INeighborhoodGrade(ABC, SharedNeighborhood):
     @classmethod
     def set_config(cls):
         additional_config = {'required':  {(key := 'item_history_col'): {'doc': super().get_doc(key),
-                                                                        'input': 'column()',
-                                                                        'validate': 'string()'}
+                                                                         'input': 'column()',
+                                                                         'validate': 'string()'},
+                                           (key := 'exact_grade'): {'doc': super().get_doc(key),
+                                                                    'input': 'checkbox()',
+                                                                    'validate': 'boolean()'}
 
                                            }
                              }
         cls.cfg = super().update_config(cls.cfg, additional_config)
 
     @abstractmethod
-    def iget_neighborhood(self, who: dict, possible: pd.DataFrame, item_history_col: str) -> list:
+    def iget_neighborhood(self, who: dict, possible: pd.DataFrame, item_history_col: str, exact_grade: bool) -> list:
         """
         Abstract method to be implemented for getting neighborhood of an id based on data.
         :param who: dict containing index (id) with related data to find neighborhood using the possible dataframe
         :param possible: dataframe containing id and related data of possible neighbors of who.
         :param item_history_col: column containing dict of form {item: rating}
+        :param exact_grade: Match on the exact grade. (False numerically matches only letter of grade
+        using the 4.0, 3.7, 3.3, 3.0, ... scale)
         :return: list containing ids of neighbors (namedtuples so can store additional info about neighbor relation)
                                                     e.g. [Neighbor(id=101, similarity=0.8), ...]
         """

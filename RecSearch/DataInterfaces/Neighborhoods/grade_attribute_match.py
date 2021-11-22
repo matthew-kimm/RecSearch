@@ -20,14 +20,19 @@ class IXNeighborAttributesMatchOverlapGradeHistory(INeighborhoodGradeAttributes)
                                                                    },
                                           (key := 'item_history_col'): {'doc': super().get_doc(key),
                                                                         'input': 'column()',
-                                                                        'validate': 'string()'}
-
+                                                                        'validate': 'string()'},
+                                          (key := 'exact_grade'): {'doc': super().get_doc(key),
+                                                                   'input': 'checkbox()',
+                                                                   'validate': 'boolean()'}
                                           }
                              }
         cls.cfg = super().update_config(cls.cfg, additional_config)
 
-    def iget_neighborhood(self, who: dict, possible: pd.DataFrame, attributes: list, item_history_col: str) -> list:
-        df = self.neighbor_filter(SIXNeighborhoodAttributesExactMatch.iget_neighborhood(self, who, possible, attributes), possible)
-        return SIXGradeMatch.iget_neighborhood(self, who, df, item_history_col)
+    def iget_neighborhood(self, who: dict, possible: pd.DataFrame,
+                          attributes: list, item_history_col: str, exact_grade: bool) -> list:
+        df = self.neighbor_filter(SIXNeighborhoodAttributesExactMatch.iget_neighborhood(
+            self, who, possible, attributes), possible)
+        return SIXGradeMatch.iget_neighborhood(self, who, df, item_history_col, exact_grade)
+
 
 IXNeighborAttributesMatchOverlapGradeHistory.set_config()
