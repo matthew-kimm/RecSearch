@@ -38,13 +38,14 @@ class SharedMatrixRecommenders(SharedRecommenders):
         else:
             raise NotImplementedError
 
-    def powerIteration(self, M: pd.DataFrame, tol: float, max_iter: int, names: list):
+    def powerIteration(self, M: pd.DataFrame, tol: float, max_iter: int, names: list, norm: bool=True):
         n = M.shape[0]
         v = np.random.rand(n, 1)
         v = v / np.linalg.norm(v, 1)
         for i in range(0, max_iter):
             nv = M@v
-            nv = nv / np.linalg.norm(nv, 1)
+            if norm:
+                nv = nv / np.linalg.norm(nv, 1)
             if np.linalg.norm(v-nv, 1) < tol:
                 v = nv
                 break
@@ -283,7 +284,7 @@ class IMatrixRecommender(ABC, SharedMatrixRecommenders):
 IMatrixRecommender.set_config()
 
 
-class IMatrixNeighborRecommender(ABC, SharedMatrixRecommenders):
+class IMatrixRankRecommender(ABC, SharedMatrixRecommenders):
     @classmethod
     def set_config(cls):
         additional_config = {'required': {(key := 'n_column'): {'doc': super().get_doc(key),
@@ -328,4 +329,4 @@ class IMatrixNeighborRecommender(ABC, SharedMatrixRecommenders):
         pass
 
 
-IMatrixNeighborRecommender.set_config()
+IMatrixRankRecommender.set_config()
