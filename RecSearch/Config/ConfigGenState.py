@@ -390,6 +390,12 @@ class Dumper:
                 if output[wkey] == {}:
                     output[wkey]['precedence'] = self.meta_dw.get_precedence(worker)
                 output[wkey].update(dict(ConfigObj(state.split('\n'))))
+            for specific_worker in output[wkey].keys():
+                if specific_worker == 'precedence':
+                    pass
+                else:
+                    if 'parameters' not in output[wkey][specific_worker].keys():
+                        output[wkey][specific_worker]['parameters'] = {}
             if output[wkey] == {}:
                 output.pop(wkey)
         # ConfigObj writer does not work as intended add an extra [ and ]
