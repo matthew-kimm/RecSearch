@@ -1,0 +1,9 @@
+[EXP]
+name = matched
+experiment = Experiments/Demo/movie.ini
+
+[SUM]
+a = C__count_five_starM__five_star
+b = C__count_matchedM__matched
+expression = ++b
+

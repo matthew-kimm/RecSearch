@@ -6,7 +6,7 @@ class IXCourseAvgRecommend(ICountRecommender):
     def iget_recommendation(self, who: dict, possible: pd.DataFrame, n_column: str, ir_column: str, count: int, filter_name: str = None) -> list:
         f = self.get_filter(who, filter_name)
         df = self.get_reduced_df(who, possible, n_column)
-        df[ir_column] = df[ir_column].apply(lambda x: [';'.join((k, str(v))) for k, v in x.items() if k not in f])
+        df[ir_column] = df[ir_column].apply(lambda x: [';'.join((str(k), str(v))) for k, v in x.items() if k not in f])
         df = df.explode(column=ir_column).dropna()
         if df.empty:
             return []

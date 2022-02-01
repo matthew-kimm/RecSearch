@@ -89,7 +89,7 @@ class IMetricThreshold(ABC, MetricShared):
                                           (key := 'threshold'):
                                               {'doc': super().get_doc(key),
                                                'input': 'text()',
-                                               'validate': 'float(min=0.0, max=4.0, default=2.0)'}
+                                               'validate': 'float(min=0.0, default=2.0)'}
                                           }
                              }
         cls.cfg = super().update_config(cls.cfg, additional_config)

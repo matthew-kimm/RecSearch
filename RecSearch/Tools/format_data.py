@@ -10,6 +10,7 @@ def main(attribute_csv, item_history_csv, target_term, output_file):
     if attribute_csv:
         attribute_data = pd.read_csv(attribute_csv, index_col=0)
     item_history_data = pd.read_csv(item_history_csv)
+    item_history_data['Item'] = item_history_data['Item'].astype(str)
 
     item_history_data['ItemRating'] = pd.Series(data=list(zip(item_history_data['Item'], item_history_data['Rating'])),
                                                 index=item_history_data.index)

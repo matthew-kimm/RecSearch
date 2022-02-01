@@ -7,7 +7,7 @@ class IXHITSMMURecommend(IMatrixRecommender):
                             req_rating: float, xi: float, tol: float, max_iter: int, filter_name: str = None) -> list:
         f = self.get_filter(who, filter_name)
         df = self.get_reduced_df(who, possible, n_column)
-        df[ir_column] = df[ir_column].apply(lambda x: [';'.join((k, str(v))) for k, v in x.items() if k not in f])
+        df[ir_column] = df[ir_column].apply(lambda x: [';'.join((str(k), str(v))) for k, v in x.items() if k not in f])
         # Exploding on [] results in nan
         df = df.explode(column=ir_column).dropna()
         if df.empty:
