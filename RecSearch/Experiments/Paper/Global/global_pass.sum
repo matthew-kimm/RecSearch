@@ -1,0 +1,9 @@
+[EXP]
+name = global_pass
+experiment = Experiments/Paper/Global/global.ini
+
+[SUM]
+a = C__CountPassedM__Passed
+b = C__CountMatchedM__Matched
+expression = ++a/++b
+
