@@ -9,7 +9,7 @@ A tool for research on recommender systems.
 * [How It Works](#How-It-Works)
 * [DataWorkers](#DataWorkers)
 * [How To Extend](#How-To-Extend)
-* [Tutorial](#Tutorial)
+* [Tutorial](#Tutorials)
 
 ## Description
 RecSearch is a tool for conducting research on 
