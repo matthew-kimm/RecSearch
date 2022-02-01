@@ -1,3 +1,3 @@
 # Tutorial
 ## See Demo
-[Demo](RecSearch/Data/Demo/MovieLens.md)
+[Demo](../Data/Demo/MovieLens.md)
