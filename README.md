@@ -46,6 +46,7 @@ Requires
 * matplotlib (for plotting summary)
 * openpyxl (writing xlsx files)
 
+* python3-tk package if using Linux and not already installed (e.g. ubuntu: apt install python3-tk)
 ## How It Works
 ### Idea
 DataWorkers are the abstraction of steps in the recommendation system process.
@@ -145,9 +146,12 @@ Items rated by neighbors ordered by most frequent (popular).
 #### hits
 Items rated by neighbors utilizing mutually reinforcing relationship between users and items based on ratings.
 
-#### hitsmm_update
+#### hitsmm
 Items rated using hits on a directed weighted graph where proportions 
 of neighborhood users rating above a threshold are used as the edge weights.
+
+#### coursediffrank
+Items rated by "difficulty" ranking from comparing the performance of two courses when taken together.
 
 #### actual (Dummy Recommender)
 The items actually selected by the user with ratings.
